@@ -1,5 +1,7 @@
 {
   "item.infmod.staffshard": "Staff Shard",
-  "block.infmod.king_block": "Block of Kings,
-  "item.infmod.staff": "The Fire Staff"
+  "block.infmod.king_block": "Block of Kings",
+  "item.infmod.staff": "The Fire Staff",
+  "item.infmod.piglinking_spawn_egg": "Piglinking Spawn Egg",
+  "entity.infmod.piglinking": "Piglinking"
 }

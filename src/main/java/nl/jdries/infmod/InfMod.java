@@ -1,6 +1,8 @@
 package nl.jdries.infmod;
 
 import com.mojang.logging.LogUtils;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraftforge.api.distmarker.Dist;
@@ -16,6 +18,8 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import nl.jdries.infmod.block.ModBlocks;
+import nl.jdries.infmod.entity.ModEntities;
+import nl.jdries.infmod.entity.client.piglinkingRenderer;
 import nl.jdries.infmod.item.ModItems;
 import org.slf4j.Logger;
 
@@ -44,7 +48,7 @@ public class InfMod
         ModBlocks.register(modEventBus);
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
-
+        ModEntities.register(modEventBus);
         // Register our mod's ForgeConfigSpec so that Forge can create and load the config file for us
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
@@ -70,6 +74,9 @@ public class InfMod
         if(event.getTabKey() == CreativeModeTabs.NATURAL_BLOCKS){
             event.accept(ModBlocks.KING_BLOCK);
         }
+        if(event.getTabKey() == CreativeModeTabs.SPAWN_EGGS){
+            event.accept(ModItems.PIGLINKING_SPAWN_EGG);
+        }
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call
@@ -86,7 +93,7 @@ public class InfMod
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event)
         {
-            // Some client setup code
+            EntityRenderers.register(ModEntities.PIGLINKING.get(), piglinkingRenderer::new);
 
         }
     }
