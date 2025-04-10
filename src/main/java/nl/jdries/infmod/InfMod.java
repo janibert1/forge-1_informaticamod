@@ -61,7 +61,12 @@ public class InfMod
         if(event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
             event.accept(ModItems.STAFFSHARDS);
         }
-
+        if(event.getTabKey() == CreativeModeTabs.COMBAT){
+            event.accept(ModItems.STAFF);
+        }
+        if(event.getTabKey() == CreativeModeTabs.INGREDIENTS){
+            event.accept(ModItems.STAFFHEART);
+        }
         if(event.getTabKey() == CreativeModeTabs.NATURAL_BLOCKS){
             event.accept(ModBlocks.KING_BLOCK);
         }

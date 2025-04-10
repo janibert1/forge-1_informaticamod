@@ -6,6 +6,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import nl.jdries.infmod.InfMod;
+import nl.jdries.infmod.item.custom.StaffItem;
 
 public class ModItems {
     public static final DeferredRegister<Item> ITEMS =
@@ -13,8 +14,10 @@ public class ModItems {
 
     public static final RegistryObject<Item> STAFFSHARDS = ITEMS.register("staffshard",
             () -> new Item(new Item.Properties()));
-
-
+    public static final RegistryObject<Item> STAFFHEART = ITEMS.register("staffheart",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> STAFF = ITEMS.register("staff",
+            () -> new StaffItem(new Item.Properties().durability(100)));
     public static void register(IEventBus eventBus){
         ITEMS.register(eventBus);
     }
