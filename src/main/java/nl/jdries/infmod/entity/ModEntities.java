@@ -1,5 +1,6 @@
 package nl.jdries.infmod.entity;
 
+import net.minecraft.resources.ResourceLocation;
 import nl.jdries.infmod.InfMod;
 
 import nl.jdries.infmod.entity.custom.piglinkingentity;

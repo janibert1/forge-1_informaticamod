@@ -5,11 +5,13 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.BossEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.AnimationState;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
@@ -21,8 +23,8 @@ import net.minecraft.world.entity.projectile.LargeFireball;
 import net.minecraft.world.entity.monster.Blaze;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import nl.jdries.infmod.util.FortressUtils;
-import nl.jdries.infmod.world.PiglinKingManager;
+
+
 
 public class piglinkingentity extends Monster {
 
@@ -31,6 +33,7 @@ public class piglinkingentity extends Monster {
 
     private final ServerBossEvent bossEvent = new ServerBossEvent(Component.literal("The Piglin King"),
             BossEvent.BossBarColor.YELLOW, BossEvent.BossBarOverlay.NOTCHED_20);
+
 
     // Timers for abilities.
     private int fireballTimer = 20;          // Fireball every second (20 ticks)
@@ -67,17 +70,6 @@ public class piglinkingentity extends Monster {
             this.idleAnimationState.start(this.tickCount);
         } else {
             --this.idleAnimationTimeout;
-        }
-    }
-    @Override
-    public void die(DamageSource source) {
-        super.die(source);
-        // On death, mark the fortress as cleared.
-        if (!this.level().isClientSide() && this.level() instanceof ServerLevel serverLevel) {
-            BlockPos currentPos = this.blockPosition();
-            BlockPos fortressCenter = FortressUtils.getFortressCenter(serverLevel, currentPos);
-            PiglinKingManager manager = PiglinKingManager.get(serverLevel);
-            manager.markFortressCleared(fortressCenter);
         }
     }
 
