@@ -1,7 +1,9 @@
 package nl.jdries.infmod.entity.custom;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerBossEvent;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.BossEvent;
 import net.minecraft.world.damagesource.DamageSource;
@@ -19,6 +21,8 @@ import net.minecraft.world.entity.projectile.LargeFireball;
 import net.minecraft.world.entity.monster.Blaze;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import nl.jdries.infmod.util.FortressUtils;
+import nl.jdries.infmod.world.PiglinKingManager;
 
 public class piglinkingentity extends Monster {
 
@@ -65,6 +69,18 @@ public class piglinkingentity extends Monster {
             --this.idleAnimationTimeout;
         }
     }
+    @Override
+    public void die(DamageSource source) {
+        super.die(source);
+        // On death, mark the fortress as cleared.
+        if (!this.level().isClientSide() && this.level() instanceof ServerLevel serverLevel) {
+            BlockPos currentPos = this.blockPosition();
+            BlockPos fortressCenter = FortressUtils.getFortressCenter(serverLevel, currentPos);
+            PiglinKingManager manager = PiglinKingManager.get(serverLevel);
+            manager.markFortressCleared(fortressCenter);
+        }
+    }
+
 
     @Override
     public void tick() {
