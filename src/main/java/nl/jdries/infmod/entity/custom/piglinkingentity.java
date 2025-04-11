@@ -2,6 +2,7 @@ package nl.jdries.infmod.entity.custom;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerBossEvent;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.BossEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
@@ -24,6 +25,8 @@ public class piglinkingentity extends Monster {
     public final AnimationState idleAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
 
+    private final ServerBossEvent bossEvent = new ServerBossEvent(Component.literal("The Piglin King"),
+            BossEvent.BossBarColor.YELLOW, BossEvent.BossBarOverlay.NOTCHED_20);
 
     // Timers for abilities.
     private int fireballTimer = 20;          // Fireball every second (20 ticks)
@@ -72,6 +75,7 @@ public class piglinkingentity extends Monster {
         }
 
         // Only execute abilities on the server side and when there is a target.
+
         if (!this.level().isClientSide() && this.getTarget() != null) {
             // --- FIREBALL SHOOTING ---
             fireballTimer--;
@@ -79,6 +83,7 @@ public class piglinkingentity extends Monster {
                 shootFireballAtTarget();
                 fireballTimer = 20; // Reset for 1 second intervals.
             }
+
 
             // --- BLAZE SPAWNING ---
             if (blazeSpawnDuration <= 0) {
@@ -134,6 +139,23 @@ public class piglinkingentity extends Monster {
             amount *= 0;
         }
         return super.hurt(source, amount);
+    }
+    @Override
+    public void startSeenByPlayer(ServerPlayer pServerPlayer) {
+        super.startSeenByPlayer(pServerPlayer);
+        this.bossEvent.addPlayer(pServerPlayer);
+    }
+
+    @Override
+    public void stopSeenByPlayer(ServerPlayer pServerPlayer) {
+        super.stopSeenByPlayer(pServerPlayer);
+        this.bossEvent.removePlayer(pServerPlayer);
+    }
+
+    @Override
+    public void aiStep() {
+        super.aiStep();
+        this.bossEvent.setProgress(this.getHealth() / this.getMaxHealth());
     }
 
 
