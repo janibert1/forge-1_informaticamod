@@ -24,5 +24,5 @@ public class ModItems {
         ITEMS.register(eventBus);
     }
     public static final RegistryObject<Item> PIGLINKING_SPAWN_EGG   = ITEMS.register("piglinking_spawn_egg",
-            () -> new ForgeSpawnEggItem(ModEntities.PIGLINKING, 0x010000, 0x004000, new Item.Properties()));
+            () -> new ForgeSpawnEggItem(ModEntities.PIGLINKING, 0xFF5733, 0xFFD533, new Item.Properties()));
 }
