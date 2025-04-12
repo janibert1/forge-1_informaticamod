@@ -14,6 +14,7 @@ import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
@@ -50,6 +51,7 @@ public class piglinkingentity extends Monster {
                 .add(Attributes.MOVEMENT_SPEED, 0.23F)
                 .add(Attributes.ATTACK_DAMAGE, 3.0)
                 .add(Attributes.ARMOR, 2.0)
+                .add(Attributes.MAX_HEALTH, 100.0)
                 .add(Attributes.EXPLOSION_KNOCKBACK_RESISTANCE, 1.0);
 
     }
@@ -58,6 +60,7 @@ public class piglinkingentity extends Monster {
     protected void registerGoals() {
         // Example goal: Random strolling (you can add additional goals as needed)
         this.goalSelector.addGoal(0, new RandomStrollGoal(this, 1));
+        this.goalSelector.addGoal(0, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 2, false));
 
         // Targeting players

@@ -17,7 +17,7 @@ public class ModEntities {
 
     public static final RegistryObject<EntityType<piglinkingentity>> PIGLINKING =
             ENTITY_TYPES.register("piglinking", () -> EntityType.Builder.of(piglinkingentity::new, MobCategory.MONSTER)
-                    .sized(1.5f, 1.5f).build("piglinking"));
+                    .sized(3f, 4f).build("piglinking"));
 
 
     public static void register(IEventBus eventBus) {

@@ -44,7 +44,7 @@ public class StaffItem extends Item {
                 }
 
                 // Spawn 5 blazes around the player.
-                for (int i = 0; i < 5; i++) {
+                for (int i = 0; i < 20; i++) {
                     double offsetX = (Math.random() - 0.5) * 2;
                     double offsetZ = (Math.random() - 0.5) * 2;
                     Blaze blaze = new Blaze(EntityType.BLAZE, level);
@@ -55,7 +55,7 @@ public class StaffItem extends Item {
                 blazeCooldowns.put(playerId, currentTime + 300);
                 // Damage the item by 25 durability points.
                 ((ServerPlayer) player).getItemInHand(hand)
-                        .hurtAndBreak(25, (ServerLevel) level, (ServerPlayer) player, (Consumer<Item>)(p -> {}));
+                        .hurtAndBreak(90, (ServerLevel) level, (ServerPlayer) player, (Consumer<Item>)(p -> {}));
 
             } else {
                 // Fireball mode (2 sec cooldown = 40 ticks)

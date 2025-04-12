@@ -10,7 +10,7 @@ import nl.jdries.infmod.entity.custom.piglinkingentity;
 
 public class piglinkingRenderer extends MobRenderer<piglinkingentity, piglinkingModel<piglinkingentity>> {
     public piglinkingRenderer(EntityRendererProvider.Context pContext) {
-        super(pContext, new piglinkingModel<>(pContext.bakeLayer(piglinkingModel.LAYER_LOCATION)), 0.9f);
+        super(pContext, new piglinkingModel<>(pContext.bakeLayer(piglinkingModel.LAYER_LOCATION)), 2f);
     }
 
     @Override
